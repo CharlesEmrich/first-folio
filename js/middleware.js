@@ -13,6 +13,7 @@
     // } else {
     //   console.log(more);
     // }
+    next();
   };
 
   module.middleware = middleware;
