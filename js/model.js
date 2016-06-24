@@ -18,22 +18,21 @@
   // };
 
   model.requestRepos = function(callback) {
-    $.ajax({
-      method: 'GET',
-      url: '/github/user/repos',
-      success: function(data) {
+    $.get('/github/user/repos' + '?per_page=100' + '&sort=updated')
+      .done(function(data, message, xhr) {
         if (typeof data !== 'undefined') {
-          // data.sort(function(a,b) {
-          //   return ; // TODO: figure out how dates are formatting in github's JSON response
-          // });
+            // data.sort(function(a,b) {
+            //   return ; // TODO: figure out how dates are formatting in github's JSON response
+            // });
           model.all = data;
           model.all.map(function(ele) {
             ele.avatarsrc = 'https://avatars.githubusercontent.com/u/14851269?v=3';
           }); //This is, admittedly, a test or workaround.
           console.log(model.all);
         }
-      }
-    }).done(callback);
+      })
+      .done(callback);
   };
+
   module.model = model;
 })(window);
